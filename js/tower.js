@@ -2,17 +2,16 @@ var game = new Phaser.Game(600, 600);
 // Play State
 var playState = {
 	create : function() {
+		// Add sprite and set anchor position.
 		this.block = game.add.sprite(game.world.centerX, 100, 'block');
 		this.block.anchor.setTo(0.5, 0.5);
-
-
-
+		
+		//Setup Physics Arcade.
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 		game.physics.arcade.enable(this.block);
-		this.block.collideWorldBounds = true;
-		this.block.checkCollision = { up: true, down: true, left: true, right: true };
-
-	    var tween = game.add.tween(this.block)
+		
+		// Set up tween for oscillating the block
+		var tween = game.add.tween(this.block)
 	    .to({ x : 25, y : 25 }, 1000, Phaser.Easing.Linear.Out)
 	    .to({ x : game.world.centerX, y : 100 }, 1000, Phaser.Easing.Linear.Out)
 	    .to({ x : game.world.width - 25, y : 25 }, 1000, Phaser.Easing.Linear.Out)
@@ -21,33 +20,32 @@ var playState = {
 	    .start();
 		console.log("Tween Move : ", tween);
 		
-		// Move the block from the keyboard
+		// Make the block fall on pressing spacebar.
 		var space = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		space.onDown.add(this.fall, this);
 	},
-	update : function() {
-		//Oscillate
-		// this.oscillate();
-		if (!(this.block.y < 600)) {
-			this.stopFall();
-		}
-	},
+	update : function() {},
 	preload : function() {
+		// Add game images.
 		game.load.image('block', 'images/block50.png');
 		game.load.image('bg', 'images/block100.png');
 	},
 	fall : function() {
+		// Handles the falling behaviour of the block.
         game.tweens.removeAll();
 		this.block.body.gravity.y = 2000;
 	},
 	stopFall : function() {
+		// Stops the falling of the block on reaching bottom
+		// TODO: Possibly not need. Try collision method.
 		console.log("Stopped");
 		this.block.body.gravity.y = -200;
 		console.log("Gravity of the block after calling stopFall: ",this.block.body.gravity.y);
 
 	},
 	oscillate : function() {
-		this.block.x++;
+		// Handles oscillation of the block in circular motion
+		// TODO: Currently not used as oscillation is handled by tween inside create() method.
 	},
 	deathHandler : function() {}
 	};
