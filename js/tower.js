@@ -1,7 +1,11 @@
 var game = new Phaser.Game(600, 600);
+var platforms;
 // Play State
 var playState = {
   create : function() {
+	//Setup Physics Arcade.
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
     // Array will handle the balance itself along with its data
     this.balance = [];
     // balance[0] will be the left balance
@@ -15,13 +19,25 @@ var playState = {
     // The threshold upto which left and right balance can be deviated
     this.balanceThreshold = 500;
 
-    // Add sprite and set anchor position.
-    this.block = game.add.sprite(game.world.centerX, 100, 'block');
-    this.block.anchor.setTo(0.5, 0.5);
+     
 
     //Setup Physics Arcade.
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.physics.arcade.enable(this.block);
+		game.physics.startSystem(Phaser.Physics.ARCADE);
+		// Add sprite and set anchor position.
+		this.block = game.add.sprite(game.world.centerX, 100, 'block');
+		this.block.anchor.setTo(0.5, 0.5);
+		
+		game.physics.arcade.enable(this.block);
+		this.block.collideWorldBounds = true;
+
+		// Create obstacle
+		platforms = game.add.group();
+		platforms.enableBody = true;
+
+		var towerTop = platforms.create(0, 300, 'towerTop');
+		towerTop.body.immovable = true;
+
+   
 
     // Set up tween for oscillating the block
     var tween = game.add.tween(this.block)
@@ -39,6 +55,15 @@ var playState = {
   },
 
   update : function() {
+    var hasCollided = game.physics.arcade.collide(this.block, platforms);
+    if (hasCollided) {
+    	// Update Scores
+    	// Create another oscillating block.
+    } else {
+    	// Update Scores
+		// Update life status
+		// Create another oscillating block if player has remaining life.
+    }
 
   },
 
@@ -46,11 +71,11 @@ var playState = {
     // Handles the falling behaviour of the block.
     game.tweens.removeAll();
     this.block.body.gravity.y = 2000;
-    this.placeBlock();
+    // this.placeBlock();
   },
 
   placeBlock: function() {
-    this.block = game.add.sprite(game.input.worldX,game.input.worldY,"block");
+    this.block = game.add.sprite(game.input.worldX,game.input.worldY,"blocks");
     this.block.anchor.setTo(0.5, 0.5);
     // checked if the block is deviated from centre position
     if (game.width/2 !== this.block.x) {
@@ -86,7 +111,8 @@ var playState = {
 
   preload : function() {
     game.load.image('block', 'images/block50.png');
-    game.load.image('bg', 'images/block100.png');
+	game.load.image('towerTop', 'images/block100.png');
+	game.load.image('bg', 'images/block100.png');
   },
 
 
