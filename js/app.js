@@ -1,18 +1,18 @@
 var game = new Phaser.Game(400, 400);
 
 var fallingBlock;
+var topBlock;
 
 var playState = {
   create: function() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    this.platform = game.add.group();
+    topBlock = game.add.sprite(game.world.centerX, (400 - 25), 'block');
+    topBlock.anchor.setTo(0.5, 0.5);
+    game.physics.arcade.enable(topBlock);
+    topBlock.body.immovable = true;
 
-
-
-    this.platform.enableBody = true;
-
-    this.createBlock();
+    fallingBlock = this.createBlock();
 
     var space = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     space.onDown.add(this.fall, this);
@@ -24,8 +24,6 @@ var playState = {
 
     game.physics.arcade.enable(this.block);
 
-    this.platform.add(this.block);
-
     this.block.collideWorldBounds = true;
     var tween = game.add.tween(this.block)
     .to({ x : 25, y : 25 }, 1000, Phaser.Easing.Linear.Out)
@@ -36,16 +34,19 @@ var playState = {
     .start();
     this.block.body.enableBody = true;
     this.block.body.collideWorldBounds = true;
+    return this.block;
   },
   fall: function() {
-    fallingBlock = this.block;
     game.tweens.removeAll();
     this.block.body.gravity.y = 1000;
-    this.platform.add(this.block);
-    this.createBlock();
   },
   update: function() {
-    game.physics.arcade.collide(this.platform, this.platform)
+    var x = game.physics.arcade.collide(fallingBlock, topBlock)
+    if (x) {
+      topBlock = fallingBlock;
+      fallingBlock = this.createBlock();
+    }
+
   },
   preload: function() {
     game.load.image('block', 'images/block50.png');
