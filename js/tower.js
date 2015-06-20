@@ -1,5 +1,13 @@
 var game = new Phaser.Game(600, 600);
 var platforms;
+var dx = 1;
+var dy = 1;
+
+var originalX;
+var originalY;
+
+var droppedBlock = [];
+
 // Play State
 var playState = {
   create : function() {
@@ -25,6 +33,8 @@ var playState = {
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 		// Add sprite and set anchor position.
 		this.block = game.add.sprite(game.world.centerX, 100, 'block');
+		originalX = this.block.x;
+		originalY = this.block.y;
 		this.block.anchor.setTo(0.5, 0.5);
 		
 		game.physics.arcade.enable(this.block);
@@ -55,10 +65,16 @@ var playState = {
   },
 
   update : function() {
+  	// Oscillate the block
+  	// this.oscillateBlock();
     var hasCollided = game.physics.arcade.collide(this.block, platforms);
     if (hasCollided) {
     	// Update Scores
     	// Create another oscillating block.
+      droppedBlock.push = this.block;
+      platforms.add(droppedBlock);
+      this.create();
+
     } else {
     	// Update Scores
 		// Update life status
@@ -70,7 +86,8 @@ var playState = {
   fall : function() {
     // Handles the falling behaviour of the block.
     game.tweens.removeAll();
-    this.block.body.gravity.y = 2000;
+    this.block.body.gravity.y = 100;
+
     // this.placeBlock();
   },
 
@@ -127,6 +144,31 @@ var playState = {
   oscillate : function() {
     // Handles oscillation of the block in circular motion
     // TODO: Currently not used as oscillation is handled by tween inside create() method.
+  },
+  oscillateBlock : function() {
+  	// this.block.body.velocity.x = 5;
+  	// this.block.body.velocity.y = 5 ;
+  	if (this.block.x < 600 && this.block.x > 0) {
+  		  	var x = this.block.x += 1;
+  		  	var dy = 1;
+
+    }else {
+  	  	var x = this.block.x -= 1;
+  	  	var dy = -1;
+  	}
+  	console.log("X", this.block.x);
+  	xSquare = x * x;
+  	var radiusSquare = 0.5;
+  	var squareDiff = xSquare - radiusSquare;
+  	var squareDiffUnderRoot = Math.pow(squareDiff, 0.5);
+
+	this.block.y = squareDiffUnderRoot * dy;
+
+  	console.log (this.block.y);
+  	console.log(originalX, originalY);
+
+	// this.block.x += 1;
+	// this.block.y +=
   },
 
   deathHandler : function() {}
