@@ -27,8 +27,6 @@ var playState = {
     // The threshold upto which left and right balance can be deviated
     this.balanceThreshold = 500;
 
-     
-
     //Setup Physics Arcade.
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 		// Add sprite and set anchor position.
@@ -36,7 +34,7 @@ var playState = {
 		originalX = this.block.x;
 		originalY = this.block.y;
 		this.block.anchor.setTo(0.5, 0.5);
-		
+
 		game.physics.arcade.enable(this.block);
 		this.block.collideWorldBounds = true;
 
@@ -47,7 +45,7 @@ var playState = {
 		var towerTop = platforms.create(0, 300, 'towerTop');
 		towerTop.body.immovable = true;
 
-   
+
 
     // Set up tween for oscillating the block
     var tween = game.add.tween(this.block)
@@ -72,7 +70,7 @@ var playState = {
     	// Update Scores
     	// Create another oscillating block.
       droppedBlock.push = this.block;
-      platforms.add(droppedBlock);
+      //platforms.add(droppedBlock);
       this.create();
 
     } else {
