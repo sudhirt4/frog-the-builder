@@ -55,7 +55,6 @@ var playState = {
     .to({ x : game.world.centerX, y : 100 }, 1000, Phaser.Easing.Linear.Out)
     .loop()
     .start();
-    console.log("Tween Move : ", tween);
 
     // Make the block fall on pressing spacebar.
     var space = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
