@@ -6,6 +6,7 @@ var playState = {
 
     game.world.setBounds(0,-1000,400,1600);
 
+    var bg = game.add.tileSprite(0,-1000,400,1600,'background');
     game.physics.startSystem(Phaser.Physics.P2JS);
     game.physics.p2.setImpactEvents(true);
     game.physics.p2.gravity.y = 250;
@@ -38,6 +39,7 @@ var playState = {
         console.log("Shit !!");
       }
     }, this);
+    console.log(this.blocks.length);
   },
   fall: function() {
     this.block.body.velocity.x = 0;
@@ -54,7 +56,7 @@ var playState = {
   update: function() {
     this.updateBlockSwing();
     if(this.block.swingStatus == false) {
-      if(this.block.body.y > initY+100) {
+      if(this.block.body.y > initY+200 ) {
         this.createBlock();
       }
     }
@@ -74,10 +76,18 @@ var playState = {
   },
   preload: function() {
     game.load.image('block', 'images/block50.png');
+    game.load.image('background', 'images/background.jpg');
   }
 }
 
+var homeState = {
+  create: function() {
+
+  }
+};
+
 game.state.add("playState", playState);
+game.state.add("homeState", homeState);
 game.state.start("playState");
 
 
