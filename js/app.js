@@ -180,7 +180,7 @@ var gameOverState = {
 game.state.add("playState", playState);
 game.state.add("homeState", homeState);
 game.state.add("gameOverState", gameOverState);
-game.state.start("homeState");
+game.state.start("playState");
 
 
 
