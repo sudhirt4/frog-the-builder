@@ -18,7 +18,7 @@ var playState = {
     this.scoreText.anchor.setTo(0.5, 0.5);
     this.scoreText.fixedToCamera = true;
 
-    var frog = game.add.tileSprite(game.world.width - 75, 550, 100, 100, 'frog');
+    var frog = game.add.sprite(game.world.width - 50, 550, 'frog');
     frog.anchor.setTo(0.5, 0.5);
     frog.fixedToCamera = true;
 
