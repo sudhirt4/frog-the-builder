@@ -104,8 +104,11 @@ var homeState = {
   create: function () {
     game.world.setBounds(0, 0, 400, 600);
     game.add.tileSprite(0, 0, 400, 600, 'background');
-    var title = game.add.text(game.world.centerX, game.world.height / 4, "FROG THE BUILDER", {fill: '#222'});
-    title.anchor.setTo(0.5, 0.5);
+
+    var logo = game.add.sprite(game.world.centerX,
+    (game.world.height / 2) - (game.world.height / 4),
+    'titleLogo')
+    logo.anchor.setTo(0.5,0.5);
 
     var startButton = game.add.sprite(game.world.centerX,
     (game.world.height / 2) + 2*(game.world.height / 9),
@@ -122,6 +125,7 @@ var homeState = {
   preload: function () {
     game.load.image('background', 'images/background.png');
     game.load.image('board', 'images/board.png');
+    game.load.image('titleLogo', 'images/title.png')
   }
 };
 
