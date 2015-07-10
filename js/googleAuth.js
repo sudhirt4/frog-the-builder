@@ -81,4 +81,8 @@ function submitScore(){
     }
   });
   return true;
+};
+
+function getScore() {
+
 }

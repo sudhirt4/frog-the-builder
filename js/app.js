@@ -16,7 +16,7 @@ var playState = {
     var scoreboard = game.add.sprite(100, 50, 'board');
     scoreboard.anchor.setTo(0.5, 0.5);
     scoreboard.fixedToCamera = true;
-    this.scoreText = game.add.text(100, 50, '0', {fill: '#333'});
+    this.scoreText = game.add.text(100, 50, '0', {fill: '#333', font:'30px Simpsons'});
     this.scoreText.anchor.setTo(0.5, 0.5);
     this.scoreText.fixedToCamera = true;
 
@@ -150,16 +150,16 @@ var gameOverState = {
     game.world.setBounds(0, 0, 400, 600);
     game.add.tileSprite(0, 0, 400, 600, 'background');
 
-    var title = game.add.text(game.world.centerX, game.world.height / 4, "Game Over", {fill: '#333',  fontSize: 30});
+    var title = game.add.text(game.world.centerX, game.world.height / 4, "Game Over", {fill: '#fff', font:'Simpsons', fontSize: 48});
     title.anchor.setTo(0.5, 0.5);
 
-    game.add.text(game.world.centerX, game.world.centerY - 50, score  , {fill: '#111', fontSize: 50}).anchor.setTo(0.5,0.5);
+    game.add.text(game.world.centerX, game.world.centerY - 50, score  , {fill: '#fff', font:'30px Simpsons',  fontSize: 50}).anchor.setTo(0.5,0.5);
 
     game.add.sprite(game.world.centerX,  (game.world.height / 2) + (game.world.height / 9), 'board')
       .anchor.setTo(0.5, 0.5);
     var btn = game.add.text(game.world.centerX,
     (game.world.height / 2) + (game.world.height / 9),
-    'Retry', {fill: '#333'});
+    'Retry', {fill: '#333', font:'18px Simpsons'});
     btn.anchor.setTo(0.5, 0.5);
     btn.inputEnabled = true;
     btn.events.onInputDown.add(function () {
@@ -170,18 +170,19 @@ var gameOverState = {
       .anchor.setTo(0.5, 0.5);
     var btn = game.add.text(game.world.centerX,
     (game.world.height / 2) + 2 * (game.world.height / 9),
-    'Highscores', {fill: '#333'});
+    'Submit', {fill: '#333', font:'18px Simpsons'});
     btn.anchor.setTo(0.5, 0.5);
     btn.inputEnabled = true;
     btn.events.onInputDown.add(function () {
-      game.state.start('playState');
+      $('#score').val(score);
+      submitScore();
     }, this);
 
     game.add.sprite(game.world.centerX,  (game.world.height / 2) + 3 * (game.world.height / 9), 'board')
       .anchor.setTo(0.5, 0.5);
     var btn = game.add.text(game.world.centerX,
     (game.world.height / 2) + 3 * (game.world.height / 9),
-    'Instructions', {fill: '#333'});
+    'Instructions', {fill: '#333', font:'18px Simpsons'});
     btn.anchor.setTo(0.5, 0.5);
     btn.inputEnabled = true;
     btn.events.onInputDown.add(function () {
@@ -192,6 +193,18 @@ var gameOverState = {
   preload: function () {
     game.load.image('background', 'images/background.png');
     game.load.image('board', 'images/board.png');
+
+    $.ajax({
+      type: "GET",
+      url: "http://ribbit.lftechnology.com/api/highscore.php?game_id=3",
+      success: function (response) {
+        console.log(response);
+      },
+      error: function (response) {
+        console.log(response);
+      }
+    });
+
   }
 };
 
