@@ -73,16 +73,11 @@ function submitScore(){
     },
     dataType: "Json",
     success: function (response) {
-      alert(response.message);
-      $('#score').val('');
+      console.log(response)
     },
-    error: function () {
-      alert('There was Problem')
+    error: function (response) {
+      console.log(response)
     }
   });
   return true;
 };
-
-function getScore() {
-
-}
