@@ -1,6 +1,6 @@
 ;(function(){
 
-var game = new Phaser.Game(400, 600);
+var game = new Phaser.Game(400, 600, Phaser.AUTO, 'container');
 
 var score = 0;
 

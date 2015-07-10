@@ -42,12 +42,6 @@ function makeApiCall() {
       'userId': 'me'
     });
     request.execute(function(resp) {
-      var heading = document.createElement('h4');
-      var image = document.createElement('img');
-      image.src = resp.image.url;
-      heading.appendChild(image);
-      heading.appendChild(document.createTextNode(resp.displayName));
-      document.getElementById('content').appendChild(heading);
       document.getElementById('google_id').value=resp.id;
       document.getElementById('email').value=resp.emails[0].value;
       document.getElementById('google_name').value=resp.displayName;

@@ -8,18 +8,38 @@
 		body {
 			background: #eee;
 		}
-		canvas {
+		.main-wrapper {
+			position: relative;
+			display: table;
 			margin: 0 auto;
+		}
+		.info-wrapper {
+			position: absolute;
+			right: 0px;
+			top: 0px;
 		}
 	</style>
 </head>
 <body>
-<div style="font-family: Simpsons;">
+<div class="main-wrapper" id="container" style="font-family: Simpsons;">
+	<div class="info-wrapper" id="content">
+		<button id="authorize-button" style="visibility: hidden">Authorize</button>
+	</div>
+
 </div>
+<form name="gamescore" id="gamescore" method="post" onsubmit="return false;">
+	<input type="hidden" name="game_id" id="game_id" value="1" />
+	<input type="hidden" name="email" id="email"  />
+	<input type="hidden" name="google_id" id="google_id" />
+	<input type="hidden" name="google_name" id="google_name" />
+	<input type="hidden" name="profile_url" id="profile_url" />
+	<input type="hidden" name="profile_image_url" id="profile_image_url" />
+	<input type="hidden" name="score" id="score" />
+</form>
 
 <script language="javascript" type="text/javascript" src="js/phaser.js"></script>
-<script language="javascript" type="text/javascript" src="js/app.js"></script>
 <script language="javascript" type="text/javascript" src="js/googleAuth.js"></script>
+<script language="javascript" type="text/javascript" src="js/app.js"></script>
 <script language="javascript" type="text/javascript" src="js/jquery.js"></script>
 <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 </body>
