@@ -228,7 +228,7 @@
       btn.anchor.setTo(0.5, 0.5);
       btn.inputEnabled = true;
       btn.events.onInputDown.add(function () {
-        game.state.start('playState');
+        game.state.start('instructionState');
       }, this);
 
     },
@@ -298,11 +298,63 @@
     }
   };
 
+  var instructionState = {
+    create: function () {
+      game.world.setBounds(0, 0, 400, 600);
+      game.add.tileSprite(0, 0, 400, 600, 'background');
+
+      var logo = game.add.sprite(game.world.centerX,
+      (game.world.height / 2) - (game.world.height / 4),
+      'titleLogo')
+      logo.anchor.setTo(0.5, 0.5);
+
+
+      var title = game.add.text(game.world.centerX, game.world.height / 2,
+      "Bring out your inner architect",
+      {
+        fill: 'yellow',
+        font: 'Simpsons',
+        fontSize: 24
+      });
+      title.anchor.setTo(0.5, 0.5);
+
+      var title = game.add.text(game.world.centerX, game.world.height / 1.7,
+      "SPACEBAR : Drop the block",
+      {
+        fill: '#fff',
+        font: 'Simpsons',
+        fontSize: 15
+      });
+      title.anchor.setTo(0.5, 0.5);
+
+      var startButton = game.add.sprite(game.world.centerX,
+      (game.world.height / 2) + 2 * (game.world.height / 9),
+      'board');
+      game.add.text(game.world.centerX,
+      (game.world.height / 2) + 2 * (game.world.height / 9), "Build", {
+        fill: '#333',
+        font: '30px Simpsons'
+      }).anchor.setTo(0.5, 0.5);
+      startButton.anchor.setTo(0.5, 0.5);
+      startButton.inputEnabled = true;
+      startButton.events.onInputDown.add(function () {
+        game.state.start('playState');
+      }, this);
+
+    },
+    preload: function () {
+      game.load.image('background', 'images/background.png');
+      game.load.image('board', 'images/board.png');
+      game.load.image('titleLogo', 'images/title.png')
+    }
+  };
 
   game.state.add("playState", playState);
   game.state.add("homeState", homeState);
   game.state.add("gameOverState", gameOverState);
   game.state.add("highScoreState", highScoreState);
+  game.state.add("instructionState", instructionState);
+
   game.state.start('homeState');
 
 })();
