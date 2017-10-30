@@ -1,4 +1,4 @@
-# [Frog the Builder](https://sudhirt4.github.io/TowerUp/)
+# [Frog the Builder](https://sudhirt4.github.io/FrogTheBuilder/)
 
 ## Instruction
 1. Press space to drop the block
