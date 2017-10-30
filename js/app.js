@@ -166,29 +166,6 @@ var gameOverState = {
       game.state.start('playState');
     }, this);
 
-    game.add.sprite(game.world.centerX,  (game.world.height / 2) + 2 * (game.world.height / 9), 'board')
-      .anchor.setTo(0.5, 0.5);
-    var btn = game.add.text(game.world.centerX,
-    (game.world.height / 2) + 2 * (game.world.height / 9),
-    'Submit', {fill: '#333', font:'18px Simpsons'});
-    btn.anchor.setTo(0.5, 0.5);
-    btn.inputEnabled = true;
-    btn.events.onInputDown.add(function () {
-      $('#score').val(score);
-      submitScore();
-    }, this);
-
-    game.add.sprite(game.world.centerX,  (game.world.height / 2) + 3 * (game.world.height / 9), 'board')
-      .anchor.setTo(0.5, 0.5);
-    var btn = game.add.text(game.world.centerX,
-    (game.world.height / 2) + 3 * (game.world.height / 9),
-    'Instructions', {fill: '#333', font:'18px Simpsons'});
-    btn.anchor.setTo(0.5, 0.5);
-    btn.inputEnabled = true;
-    btn.events.onInputDown.add(function () {
-      game.state.start('playState');
-    }, this);
-
   },
   preload: function () {
     game.load.image('background', 'images/background.png');
